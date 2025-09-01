@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מדריך אינטראקטיבי לטיפול בכספי פיצויים | רועי רומנו - בעל רישיון פנסיוני</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Heebo', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .interactive-button {
+            background: linear-gradient(45deg, #4f46e5, #7c3aed);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+        }
+        
+        .interactive-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.5);
+        }
+        
+        .progress-bar {
+            transition: width 0.5s ease-in-out;
+        }
+        
+        .animate-pulse-slow {
+            animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 500px;
+        }
+        
+        .checklist-item {
+            transition: all 0.3s ease;
+        }
+        
+        .checklist-item.completed {
+            background-color: #ecfdf5;
+            border-color: #10b981;
+        }
+        
+        .diagnostic-option {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .diagnostic-option:hover {
+            background-color: #f3f4f6;
+            border-color: #6366f1;
+        }
+        
+        .diagnostic-option.selected {
+            background-color: #eef2ff;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Privacy Policy Modal -->
+    <div id="privacyModal" class="modal" style="display: block;">
+        <div class="modal-content text-center">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">מדיניות פרטיות</h2>
+            <p class="text-gray-600 mb-6 leading-relaxed">
+                האתר משתמש בעוגיות טכניות לשיפור חוויית המשתמש. המידע שתזין במחשבונים נשמר באופן מקומי בדפדפן שלך בלבד ואינו נשלח לשרתים חיצוניים. אנו מכבדים את פרטיותך ומחויבים לשמירה על המידע האישי שלך.
+            </p>
+            <button onclick="closePrivacyModal()" class="interactive-button text-white px-6 py-2 rounded-lg font-medium">
+                הבנתי ואני מסכים/ה
+            </button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="gradient-bg text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl font-bold mb-4">מדריך אינטראקטיבי לטיפול בכספי פיצויים</h1>
+            <p class="text-xl opacity-90 mb-4">הדרך החכמה לקבלת החלטות פיננסיות</p>
+            <div class="text-lg">
+                <p class="font-semibold">רועי רומנו</p>
+                <p class="opacity-80">בעל רישיון פנסיוני | מתמחה בתכנון פיננסי אישי</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Warning Section -->
+        <div class="bg-red-50 border-r-4 border-red-500 p-6 mb-8 rounded-lg shadow-md">
+            <div class="flex items-start">
+                <i class="fas fa-exclamation-triangle text-red-500 text-2xl mt-1 ml-3"></i>
+                <div>
+                    <h2 class="text-xl font-bold text-red-700 mb-2">⚠️ אזהרה חשובה</h2>
+                    <p class="text-red-600 leading-relaxed">
+                        משיכת כספים כלשהם מהתוכניות הפנסיוניות השונות, עלולה לגרום לנזק בלתי הפיך לזכויותייך! 
+                        קרא בעיון את המדריך ובחן את כל האפשרויות לפני קבלת החלטה.
+                    </p>
+                    <a href="https://www.globes.co.il/news/article.aspx?did=1001246872" target="_blank" 
+                       class="inline-block mt-3 text-blue-600 hover:text-blue-800 underline">
+                        <i class="fas fa-external-link-alt ml-1"></i>
+                        קרא כתבה בגלובס: מדוע לא נכון למשוך פיצויי פיטורין
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Tools Navigation -->
+        <div class="grid md:grid-cols-3 gap-6 mb-8">
+            <button onclick="scrollToSection('calculator')" class="interactive-button text-white p-6 rounded-xl text-center">
+                <i class="fas fa-calculator text-3xl mb-3 block"></i>
+                <h3 class="font-bold text-lg">מחשבון פיצויים אישי</h3>
+                <p class="text-sm opacity-80">חשב את כספי הפיצויים שלך</p>
+            </button>
+            
+            <button onclick="scrollToSection('questionnaire')" class="interactive-button text-white p-6 rounded-xl text-center">
+                <i class="fas fa-clipboard-list text-3xl mb-3 block"></i>
+                <h3 class="font-bold text-lg">שאלון אבחון אישי</h3>
+                <p class="text-sm opacity-80">מה מתאים בדיוק לך?</p>
+            </button>
+            
+            <button onclick="scrollToSection('checklist')" class="interactive-button text-white p-6 rounded-xl text-center">
+                <i class="fas fa-tasks text-3xl mb-3 block"></i>
+                <h3 class="font-bold text-lg">צ'קליסט התהליך</h3>
+                <p class="text-sm opacity-80">עקוב אחר השלבים</p>
+            </button>
+        </div>
+
+        <!-- Process Timeline -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">
+                <i class="fas fa-road text-indigo-600 ml-2"></i>
+                שלבי הטיפול בכספי הפיצויים
+            </h2>
+            
+            <div class="relative">
+                <div class="absolute right-4 top-0 bottom-0 w-0.5 bg-indigo-300"></div>
+                
+                <div class="space-y-8">
+                    <div class="relative flex items-start">
+                        <div class="flex-shrink-0 w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-sm">1</div>
+                        <div class="mr-4 bg-white p-6 rounded-lg shadow-md flex-1">
+                            <h3 class="font-bold text-lg mb-2">קבלת טופס 161</h3>
+                            <p class="text-gray-600">הוצא טופס 161 מקורי חתום על ידי המעביד. טופס זה מכיל פירוט כספי הפיצויים הצבורים וניכויי המס.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="relative flex items-start">
+                        <div class="flex-shrink-0 w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-sm">2</div>
+                        <div class="mr-4 bg-white p-6 rounded-lg shadow-md flex-1">
+                            <h3 class="font-bold text-lg mb-2">בדיקת הסכומים</h3>
+                            <p class="text-gray-600">ודא שהסכומים בטופס תואמים לפחות לשכר אחרון כפול שנות עבודה. אם הסכום נמוך יותר - ברר עם המעסיק.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="relative flex items-start">
+                        <div class="flex-shrink-0 w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-sm">3</div>
+                        <div class="mr-4 bg-white p-6 rounded-lg shadow-md flex-1">
+                            <h3 class="font-bold text-lg mb-2">מילוי חלק ב'</h3>
+                            <p class="text-gray-600">החלט מה לעשות עם כספי הפיצויים לפי המידע במדריך זה ומלא את חלק ב' בטופס.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="relative flex items-start">
+                        <div class="flex-shrink-0 w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-sm">4</div>
+                        <div class="mr-4 bg-white p-6 rounded-lg shadow-md flex-1">
+                            <h3 class="font-bold text-lg mb-2">העברה לפקיד שומה</h3>
+                            <p class="text-gray-600">המעסיק ימלא את חלק ג' ויעביר את הטופס לפקיד שומה ובחזרה אליך להעברה לגופים המוסדיים.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="relative flex items-start">
+                        <div class="flex-shrink-0 w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-sm">5</div>
+                        <div class="mr-4 bg-white p-6 rounded-lg shadow-md flex-1">
+                            <h3 class="font-bold text-lg mb-2">מכתב העברת בעלות</h3>
+                            <p class="text-gray-600">קבל מכתב העברת בעלות מהמעסיק לכל התוכניות: ביטוחי מנהלים, קרנות פנסיה, קופ"ג וקרנות השתלמות.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calculator Section -->
+        <section id="calculator" class="mb-12 bg-white rounded-xl shadow-lg p-8">
+            <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">
+                <i class="fas fa-calculator text-indigo-600 ml-2"></i>
+                מחשבון פיצויים אישי
+            </h2>
+            
+            <div class="max-w-2xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">שכר חודשי אחרון (₪)</label>
+                        <input type="number" id="salary" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="הכנס שכר חודשי">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">מספר שנות עבודה</label>
+                        <input type="number" id="years" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="הכנס מספר שנים">
+                    </div>
+                </div>
+                
+                <button onclick="calculateSeverance()" class="w-full interactive-button text-white py-4 rounded-lg font-medium text-lg">
+                    <i class="fas fa-calculator ml-2"></i>
+                    חשב פיצויים
+                </button>
+                
+                <div id="calculatorResults" class="mt-6 hidden">
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="font-bold text-lg mb-4 text-gray-800">תוצאות החישוב:</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-green-100 p-4 rounded-lg">
+                                <p class="text-sm text-green-700 font-medium">סכום פטור ממס</p>
+                                <p class="text-2xl font-bold text-green-800" id="exemptAmount"></p>
+                            </div>
+                            <div class="bg-orange-100 p-4 rounded-lg">
+                                <p class="text-sm text-orange-700 font-medium">סכום חייב במס</p>
+                                <p class="text-2xl font-bold text-orange-800" id="taxableAmount"></p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-4">
+                            * הסכום הפטור מבוסס על התקרה לשנת 2025: 13,750 ₪ לכל שנת וותק
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Calculator Disclaimer -->
+            <div class="mt-6 bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center">
+                <p class="text-yellow-800 text-sm">
+                    <i class="fas fa-info-circle ml-1"></i>
+                    <strong>הערה חשובה:</strong> החישוב הוא הערכה בלבד. יש להתייעץ עם יועץ מקצועי לקבלת חישוב מדויק המתאים למצבך הספציפי.
+                </p>
+            </div>
+        </section>
+
+        <!-- Tax Options Section -->
+        <section class="mb-12 bg-white rounded-xl shadow-lg p-8">
+            <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">
+                <i class="fas fa-percentage text-indigo-600 ml-2"></i>
+                אפשרויות המס השונות
+            </h2>
+            
+            <div class="space-y-6">
+                <!-- Default Option - Pension Continuity -->
+                <div class="bg-blue-50 border-2 border-blue-300 rounded-xl p-6">
+                    <div class="flex items-center mb-3">
+                        <i class="fas fa-star text-blue-600 text-xl ml-3"></i>
+                        <h3 class="text-xl font-bold text-blue-800">רצף זכויות לקצבה (ברירת מחדל)</h3>
+                        <span class="bg-blue-200 text-blue-800 px-2 py-1 rounded-full text-xs font-medium mr-3">מומלץ</span>
+                    </div>
+                    <p class="text-blue-700 leading-relaxed mb-3">
+                        ייעוד כספי הפיצויים לקבלת קצבה חודשית בגיל פרישה. המס יחושב בעת קבלת הקצבה ולא כעת.
+                    </p>
+                    <div class="bg-blue-100 p-3 rounded-lg">
+                        <p class="text-blue-800 font-medium text-sm">
+                            <i class="fas fa-lightbulb ml-1"></i>
+                            יתרונות: דחיית מס, הגדלת הקצבה העתידית, שמירה על הטבות מס עתידיות
+                        </p>
+                    </div>
+                </div>
+
+                <div class="border border-gray-200 rounded-xl p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">
+                        <i class="fas fa-hand-holding-usd text-green-600 ml-2"></i>
+                        משיכת מלוא הפיצויים עם מס מיידי
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        תשלום מס מיידי בשיעור המס השולי על הכספים החייבים במס.
+                    </p>
+                </div>
+
+                <div class="border border-gray-200 rounded-xl p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">
+                        <i class="fas fa-calendar-alt text-purple-600 ml-2"></i>
+                        משיכת פטור + רצף קצבה על חייב
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        משיכת הכספים הפטורים ללא מס וייעוד החייבים לקצבה עתידית.
+                    </p>
+                    <div class="bg-yellow-50 p-3 rounded-lg mt-3">
+                        <p class="text-yellow-800 text-sm">
+                            <i class="fas fa-exclamation-triangle ml-1"></i>
+                            שים לב: כל 1 ₪ משיכת פטור מקטין את סל ההטבות העתידי ב-1.35 ₪
+                        </p>
+                    </div>
+                </div>
+
+                <div class="border border-gray-200 rounded-xl p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">
+                        <i class="fas fa-link text-indigo-600 ml-2"></i>
+                        רצף זכויות לפיצויים
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        דחיית המס למועד סיום העבודה אצל המעסיק הבא. מותנה בהתחלת עבודה חדשה תוך שנה.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Tax Options Disclaimer -->
+            <div class="mt-8 bg-gray-50 border border-gray-300 rounded-lg p-4 text-center">
+                <p class="text-gray-700 text-sm leading-relaxed">
+                    <i class="fas fa-gavel ml-1"></i>
+                    <strong>הערה משפטית:</strong> ההסברים לעיל הם כלליים ואינם מהווים ייעוץ אישי. כל מקרה הוא ייחודי ומצריך התייעצות עם יועץ מקצועי. ישנם פרמטרים נוספים רבים שיש לקחת בחשבון בקבלת ההחלטה הסופית.
+                </p>
+            </div>
+        </section>
+
+        <!-- Diagnostic Questionnaire -->
+        <section id="questionnaire" class="mb-12 bg-white rounded-xl shadow-lg p-8">
+            <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">
+                <i class="fas fa-clipboard-list text-indigo-600 ml-2"></i>
+                שאלון אבחון אישי - מה מתאים לי?
+            </h2>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="space-y-6">
+                    <div class="question-block">
+                        <h3 class="font-bold text-lg mb-4 text-gray-800">1. מה המצב הכלכלי שלך כעת?</h3>
+                        <div class="space-y-3">
+                            <div class="diagnostic-option border-2 border-gray-200 rounded-lg p-4" data-question="1" data-value="immediate">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" name="q1" value="immediate" class="ml-3">
+                                    <span>אני זקוק/ה לכסף מיידי לתשלומים דחופים</span>
+                                </label>
+                            </div>
+                            <div class="diagnostic-option border-2 border-gray-200 rounded-lg p-4" data-question="1" data-value="stable">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" name="q1" value="stable" class="ml-3">
+                                    <span>המצב הכלכלי שלי יציב ואין צורך דחוף בכסף</span>
+                                </label>
+                            </div>
+                            <div class="diagnostic-option border-2 border-gray-200 rounded-lg p-4" data-question="1" data-value="planning">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" name="q1" value="planning" class="ml-3">
+                                    <span>אני מעדיף/ה לתכנן לעתיד הרחוק</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <h3 class="font-bold text-lg mb-4 text-gray-800">2. מה גילך?</h3>
+                        <div class="space-y-3">
+                            <div class="diagnostic-option border-2 border-gray-200 rounded-lg p-4" data-question="2" data-value="young">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" name="q2" value="young" class="ml-3">
+                                    <span>מתחת לגיל 40</span>
+                                </label>
+                            </div>
+                            <div class="diagnostic-option border-2 border-gray-200 rounded-lg p-4" data-question="2" data-value="middle">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" name="q2" value="middle" class="ml-3">
+                                    <span>בין גיל 40-55</span>
+                                </label>
+                            </div>
+                            <div class="diagnostic-option border-2 border-gray-200 rounded-lg p-4" data-question="2" data-value="senior">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" name="q2" value="senior" class="ml-3">
+                                    <span>מעל גיל 55</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-block">
+                        <h3 class="font-bold text-lg mb-4 text-gray-800">3. האם תמצא/י עבודה חדשה בזמן הקרוב?</h3>
+                        <div class="space-y-3">
+                            <div class="diagnostic-option border-2 border-gray-200 rounded-lg p-4" data-question="3" data-value="yes">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" name="q3" value="yes" class="ml-3">
+                                    <span>כן, יש לי הצעת עבודה או אמצא בקרוב</span>
+                                </label>
+                            </div>
+                            <div class="diagnostic-option border-2 border-gray-200 rounded-lg p-4" data-question="3" data-value="maybe">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" name="q3" value="maybe" class="ml-3">
+                                    <span>אולי, זה לא בטוח</span>
+                                </label>
+                            </div>
+                            <div class="diagnostic-option border-2 border-gray-200 rounded-lg p-4" data-question="3" data-value="no">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" name="q3" value="no" class="ml-3">
+                                    <span>לא, אני מתכנן/ת פרישה או הפסקה ארוכה</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="generateRecommendation()" class="w-full interactive-button text-white py-4 rounded-lg font-medium text-lg mt-6">
+                        <i class="fas fa-magic ml-2"></i>
+                        קבל המלצה אישית
+                    </button>
+
+                    <div id="recommendation" class="hidden mt-6 p-6 bg-gradient-to-l from-indigo-50 to-purple-50 rounded-lg border border-indigo-200"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recommendation Disclaimer -->
+        <div class="mb-8 bg-orange-50 border border-orange-200 rounded-lg p-4 text-center">
+            <p class="text-orange-800 text-sm leading-relaxed">
+                <i class="fas fa-balance-scale ml-1"></i>
+                <strong>דיסקליימר:</strong> ההמלצות במדריך זה הן כלליות ומיועדות למידע בלבד. כל החלטה פיננסית צריכה להתבסס על ייעוץ מקצועי אישי המתחשב בנסיבותיך הספציפיות, מצבך הכלכלי, המשפחתי והבריאותי. אין לראות במידע זה כייעוץ השקעות או מס.
+            </p>
+        </div>
+
+        <!-- Interactive Checklist -->
+        <section id="checklist" class="mb-12 bg-white rounded-xl shadow-lg p-8">
+            <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">
+                <i class="fas fa-tasks text-indigo-600 ml-2"></i>
+                צ'קליסט אינטראקטיבי - עקוב אחר השלבים
+            </h2>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="space-y-4" id="checklistItems">
+                    <div class="checklist-item border-2 border-gray-200 rounded-lg p-4 flex items-center">
+                        <input type="checkbox" class="w-5 h-5 text-indigo-600 ml-4" onchange="updateProgress()">
+                        <span class="flex-1">בדיקה שקיבלתי את טופס 161 חתום מהמעסיק</span>
+                        <i class="fas fa-file-alt text-gray-400 text-xl"></i>
+                    </div>
+                    
+                    <div class="checklist-item border-2 border-gray-200 rounded-lg p-4 flex items-center">
+                        <input type="checkbox" class="w-5 h-5 text-indigo-600 ml-4" onchange="updateProgress()">
+                        <span class="flex-1">וידוא שהסכומים בטופס תואמים לציפיות</span>
+                        <i class="fas fa-calculator text-gray-400 text-xl"></i>
+                    </div>
+                    
+                    <div class="checklist-item border-2 border-gray-200 rounded-lg p-4 flex items-center">
+                        <input type="checkbox" class="w-5 h-5 text-indigo-600 ml-4" onchange="updateProgress()">
+                        <span class="flex-1">מילוי המחשבון האישי לחישוב פיצויים</span>
+                        <i class="fas fa-chart-line text-gray-400 text-xl"></i>
+                    </div>
+                    
+                    <div class="checklist-item border-2 border-gray-200 rounded-lg p-4 flex items-center">
+                        <input type="checkbox" class="w-5 h-5 text-indigo-600 ml-4" onchange="updateProgress()">
+                        <span class="flex-1">השלמת השאלון לקבלת המלצה אישית</span>
+                        <i class="fas fa-clipboard-list text-gray-400 text-xl"></i>
+                    </div>
+                    
+                    <div class="checklist-item border-2 border-gray-200 rounded-lg p-4 flex items-center">
+                        <input type="checkbox" class="w-5 h-5 text-indigo-600 ml-4" onchange="updateProgress()">
+                        <span class="flex-1">קביעת החלטה לגבי אופן הטיפול בכספי הפיצויים</span>
+                        <i class="fas fa-decision text-gray-400 text-xl"></i>
+                    </div>
+                    
+                    <div class="checklist-item border-2 border-gray-200 rounded-lg p-4 flex items-center">
+                        <input type="checkbox" class="w-5 h-5 text-indigo-600 ml-4" onchange="updateProgress()">
+                        <span class="flex-1">מילוי חלק ב' בטופס 161</span>
+                        <i class="fas fa-edit text-gray-400 text-xl"></i>
+                    </div>
+                    
+                    <div class="checklist-item border-2 border-gray-200 rounded-lg p-4 flex items-center">
+                        <input type="checkbox" class="w-5 h-5 text-indigo-600 ml-4" onchange="updateProgress()">
+                        <span class="flex-1">החזרת הטופס למעסיק</span>
+                        <i class="fas fa-paper-plane text-gray-400 text-xl"></i>
+                    </div>
+                    
+                    <div class="checklist-item border-2 border-gray-200 rounded-lg p-4 flex items-center">
+                        <input type="checkbox" class="w-5 h-5 text-indigo-600 ml-4" onchange="updateProgress()">
+                        <span class="flex-1">קבלת מכתבי העברת בעלות לכל התוכניות</span>
+                        <i class="fas fa-envelope text-gray-400 text-xl"></i>
+                    </div>
+                    
+                    <div class="checklist-item border-2 border-gray-200 rounded-lg p-4 flex items-center">
+                        <input type="checkbox" class="w-5 h-5 text-indigo-600 ml-4" onchange="updateProgress()">
+                        <span class="flex-1">בדיקת אפשרויות ריסק זמני לשמירה על הכיסויים</span>
+                        <i class="fas fa-shield-alt text-gray-400 text-xl"></i>
+                    </div>
+                </div>
+                
+                <!-- Visual Progress Bar -->
+                <div class="mt-8 bg-gray-100 rounded-lg p-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="font-semibold text-gray-700">התקדמות בתהליך</span>
+                        <span class="font-bold text-indigo-600" id="progressText">0%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+                        <div class="progress-bar bg-gradient-to-l from-indigo-500 to-purple-500 h-4 rounded-full" id="progressBar" style="width: 0%"></div>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-2 text-center" id="progressMessage">התחל לסמן משימות שהושלמו</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Additional Resources -->
+        <section class="mb-12 bg-white rounded-xl shadow-lg p-8">
+            <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">
+                <i class="fas fa-book-open text-indigo-600 ml-2"></i>
+                משאבים נוספים
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                    <h3 class="font-bold text-lg mb-3 text-blue-800">
+                        <i class="fas fa-university ml-2"></i>
+                        רשות המיסים
+                    </h3>
+                    <p class="text-blue-700 mb-4">מדריך מפורט לפרישה מהעבודה</p>
+                    <a href="https://www.gov.il/he/Departments/Guides/retirement-from-work-2023?chapterIndex=2" 
+                       target="_blank" class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                        <i class="fas fa-external-link-alt ml-1"></i>
+                        צפה במדריך
+                    </a>
+                </div>
+                
+                <div class="bg-green-50 p-6 rounded-lg border border-green-200">
+                    <h3 class="font-bold text-lg mb-3 text-green-800">
+                        <i class="fas fa-info-circle ml-2"></i>
+                        אתר פנסיוני
+                    </h3>
+                    <p class="text-green-700 mb-4">הסברים מפורטים על אפשרויות הפיצויים</p>
+                    <a href="https://pensuni.com/?p=1732" 
+                       target="_blank" class="inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
+                        <i class="fas fa-external-link-alt ml-1"></i>
+                        למידע נוסף
+                    </a>
+                </div>
+            </div>
+
+            <!-- Sharing and Export Options -->
+            <div class="mt-8 text-center">
+                <h3 class="text-xl font-bold mb-4 text-gray-800">שתף את המדריך או שמור אותו</h3>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button onclick="shareWhatsApp()" class="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition">
+                        <i class="fab fa-whatsapp ml-2"></i>
+                        שתף בווטסאפ
+                    </button>
+                    
+                    <button onclick="shareEmail()" class="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition">
+                        <i class="fas fa-envelope ml-2"></i>
+                        שלח במייל
+                    </button>
+                    
+                    <button onclick="shareFacebook()" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
+                        <i class="fab fa-facebook-f ml-2"></i>
+                        שתף בפייסבוק
+                    </button>
+                    
+                    <button onclick="shareLinkedIn()" class="bg-blue-700 text-white px-6 py-3 rounded-lg hover:bg-blue-800 transition">
+                        <i class="fab fa-linkedin-in ml-2"></i>
+                        שתף בלינקדאין
+                    </button>
+                    
+                    <button onclick="window.print()" class="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition">
+                        <i class="fas fa-print ml-2"></i>
+                        הדפס או שמור כ-PDF
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-center md:text-right mb-6 md:mb-0">
+                    <h3 class="text-2xl font-bold mb-2">רועי רומנו</h3>
+                    <p class="text-gray-300 mb-2">בעל רישיון פנסיוני | מתכנן פיננסי אישי</p>
+                    <p class="text-gray-400 text-sm mb-4">מתמחה בתכנון פנסיוני ופיננסי אישי</p>
+                    
+                    <div class="flex justify-center md:justify-start space-x-4 space-x-reverse">
+                        <a href="tel:052-8089808" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
+                            <i class="fas fa-phone ml-2"></i>
+                            052-8089808
+                        </a>
+                        <a href="mailto:roeir@ar-fo.co.il" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                            <i class="fas fa-envelope ml-2"></i>
+                            דוא"ל
+                        </a>
+                        <a href="https://wa.me/972528089808" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition">
+                            <i class="fab fa-whatsapp ml-2"></i>
+                            ווטסאפ
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-6 pt-6 text-center text-gray-400 text-sm">
+                <p class="leading-relaxed">
+                    © 2025 רועי רומנו - בעל רישיון פנסיוני. כל הזכויות שמורות. 
+                    המידע באתר זה מיועד למידע כללי בלבד ואינו מהווה ייעוץ פיננסי, השקעות או מס. 
+                    יש להתייעץ עם יועץ מקצועי לפני קבלת החלטות פיננסיות. 
+                    האתר משתמש בעוגיות טכניות לשיפור חוויית המשתמש.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Privacy Modal Functions
+        function closePrivacyModal() {
+            document.getElementById('privacyModal').style.display = 'none';
+            localStorage.setItem('privacyAccepted', 'true');
+        }
+
+        // Check if privacy was already accepted
+        if (localStorage.getItem('privacyAccepted')) {
+            document.getElementById('privacyModal').style.display = 'none';
+        }
+
+        // Smooth scrolling function
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        // Calculator Functions
+        function calculateSeverance() {
+            const salary = parseFloat(document.getElementById('salary').value);
+            const years = parseFloat(document.getElementById('years').value);
+            
+            if (!salary || !years) {
+                alert('אנא הכנס את כל הנתונים הנדרשים');
+                return;
+            }
+            
+            const totalSeverance = salary * years;
+            const exemptLimit = 13750 * years; // 2025 limit
+            const exemptAmount = Math.min(totalSeverance, exemptLimit);
+            const taxableAmount = Math.max(0, totalSeverance - exemptLimit);
+            
+            document.getElementById('exemptAmount').textContent = '₪' + exemptAmount.toLocaleString();
+            document.getElementById('taxableAmount').textContent = '₪' + taxableAmount.toLocaleString();
+            document.getElementById('calculatorResults').classList.remove('hidden');
+        }
+
+        // Diagnostic Questionnaire Functions
+        document.addEventListener('DOMContentLoaded', function() {
+            const diagnosticOptions = document.querySelectorAll('.diagnostic-option');
+            diagnosticOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const questionNum = this.dataset.question;
+                    const questionOptions = document.querySelectorAll(`[data-question="${questionNum}"]`);
+                    
+                    questionOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    
+                    const radio = this.querySelector('input[type="radio"]');
+                    radio.checked = true;
+                });
+            });
+        });
+
+        function generateRecommendation() {
+            const q1 = document.querySelector('input[name="q1"]:checked');
+            const q2 = document.querySelector('input[name="q2"]:checked');
+            const q3 = document.querySelector('input[name="q3"]:checked');
+            
+            if (!q1 || !q2 || !q3) {
+                alert('אנא ענה על כל השאלות לפני קבלת המלצה');
+                return;
+            }
+            
+            let recommendation = '';
+            let bgColor = 'bg-blue-50';
+            let borderColor = 'border-blue-200';
+            let textColor = 'text-blue-800';
+            let icon = 'fas fa-lightbulb';
+            
+            // Logic for recommendations based on answers
+            if (q1.value === 'immediate') {
+                recommendation = `
+                    <h3 class="font-bold text-xl mb-3 ${textColor}">
+                        <i class="${icon} ml-2"></i>
+                        המלצה: משיכה חלקית או מלאה
+                    </h3>
+                    <p class="mb-4 leading-relaxed">
+                        בהתחשב בצורך הכלכלי המיידי שלך, ההמלצה היא לשקול משיכת הכספים הפטורים ממס ולשמור על רצף קצבה לכספים החייבים. 
+                        זה יאפשר לך לקבל כסף מיידי מבלי לפגוע משמעותית בעתיד הפנסיוני שלך.
+                    </p>
+                    <div class="bg-yellow-100 border border-yellow-300 p-3 rounded-lg">
+                        <p class="text-yellow-800 text-sm">
+                            <i class="fas fa-exclamation-triangle ml-1"></i>
+                            חשוב לזכור: כל משיכה עכשיו משפיעה על הקצבה העתידית שלך
+                        </p>
+                    </div>
+                `;
+            } else if (q2.value === 'young' && q3.value === 'yes') {
+                recommendation = `
+                    <h3 class="font-bold text-xl mb-3 ${textColor}">
+                        <i class="${icon} ml-2"></i>
+                        המלצה: רצף זכויות לפיצויים
+                    </h3>
+                    <p class="mb-4 leading-relaxed">
+                        בגילך הצעיר ועם הסיכוי הטוב למצוא עבודה חדשה, ההמלצה היא על רצף זכויות לפיצויים. 
+                        זה ידחה את תשלום המס ויאפשר לך לצבור פיצויים נוספים במקום העבודה החדש.
+                    </p>
+                    <div class="bg-green-100 border border-green-300 p-3 rounded-lg">
+                        <p class="text-green-800 text-sm">
+                            <i class="fas fa-check-circle ml-1"></i>
+                            יתרון: ניתן לבטל החלטה זו תוך שנתיים אם תרצה
+                        </p>
+                    </div>
+                `;
+            } else {
+                recommendation = `
+                    <h3 class="font-bold text-xl mb-3 ${textColor}">
+                        <i class="${icon} ml-2"></i>
+                        המלצה: רצף זכויות לקצבה
+                    </h3>
+                    <p class="mb-4 leading-relaxed">
+                        בהתחשב בגילך ובתכניות העתיד שלך, ההמלצה היא על רצף זכויות לקצבה. 
+                        זה יגדיל את הקצבה החודשית שלך בפרישה וידחה את תשלום המס למועד קבלת הקצבה.
+                    </p>
+                    <div class="bg-blue-100 border border-blue-300 p-3 rounded-lg">
+                        <p class="text-blue-800 text-sm">
+                            <i class="fas fa-piggy-bank ml-1"></i>
+                            זוהי בדרך כלל הברירה הטובה ביותר לטווח הארוך
+                        </p>
+                    </div>
+                `;
+            }
+            
+            const recommendationDiv = document.getElementById('recommendation');
+            recommendationDiv.innerHTML = recommendation;
+            recommendationDiv.className = `mt-6 p-6 ${bgColor} rounded-lg border ${borderColor}`;
+            recommendationDiv.classList.remove('hidden');
+        }
+
+        // Checklist Progress Functions
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('#checklistItems input[type="checkbox"]');
+            const checked = document.querySelectorAll('#checklistItems input[type="checkbox"]:checked');
+            const progress = (checked.length / checkboxes.length) * 100;
+            
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('progressText').textContent = Math.round(progress) + '%';
+            
+            // Update checklist item styling
+            checkboxes.forEach((checkbox, index) => {
+                const item = checkbox.closest('.checklist-item');
+                if (checkbox.checked) {
+                    item.classList.add('completed');
+                } else {
+                    item.classList.remove('completed');
+                }
+            });
+            
+            // Update progress message
+            let message = '';
+            if (progress === 0) {
+                message = 'התחל לסמן משימות שהושלמו';
+            } else if (progress < 50) {
+                message = 'התחלה טובה! המשך עם השלבים הבאים';
+            } else if (progress < 100) {
+                message = 'כמעט סיימת! עוד קצת ותסיים את כל התהליך';
+            } else {
+                message = 'כל הכבוד! סיימת את כל השלבים בהצלחה 🎉';
+            }
+            document.getElementById('progressMessage').textContent = message;
+        }
+
+        // Sharing Functions
+        function shareWhatsApp() {
+            const text = 'מדריך אינטראקטיבי לטיפול בכספי פיצויים - מאת רועי רומנו, בעל רישיון פנסיוני';
+            const url = window.location.href;
+            window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
+        }
+
+        function shareEmail() {
+            const subject = 'מדריך אינטראקטיבי לטיפול בכספי פיצויים';
+            const body = `שלום,\n\nאני משתף איתך מדריך מקצועי ואינטראקטיבי לטיפול בכספי פיצויים.\n\nהמדריך נכתב על ידי רועי רומנו - בעל רישיון פנסיוני ומתכנן פיננסי אישי.\n\nקישור למדריך: ${window.location.href}\n\nבהצלחה!`;
+            window.open(`mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
+        }
+
+        function shareFacebook() {
+            const url = window.location.href;
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+        }
+
+        function shareLinkedIn() {
+            const url = window.location.href;
+            const title = 'מדריך אינטראקטיבי לטיפול בכספי פיצויים';
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`, '_blank');
+        }
+
+        // Save progress to localStorage
+        function saveProgress() {
+            const checkboxes = document.querySelectorAll('#checklistItems input[type="checkbox"]');
+            const progress = [];
+            checkboxes.forEach((checkbox, index) => {
+                progress[index] = checkbox.checked;
+            });
+            localStorage.setItem('pensionGuideProgress', JSON.stringify(progress));
+        }
+
+        // Load progress from localStorage
+        function loadProgress() {
+            const saved = localStorage.getItem('pensionGuideProgress');
+            if (saved) {
+                const progress = JSON.parse(saved);
+                const checkboxes = document.querySelectorAll('#checklistItems input[type="checkbox"]');
+                checkboxes.forEach((checkbox, index) => {
+                    if (progress[index]) {
+                        checkbox.checked = true;
+                    }
+                });
+                updateProgress();
+            }
+        }
+
+        // Add event listeners for progress saving
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProgress();
+            
+            const checkboxes = document.querySelectorAll('#checklistItems input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    updateProgress();
+                    saveProgress();
+                });
+            });
+        });
+    </script>
+</body>
+</html>
