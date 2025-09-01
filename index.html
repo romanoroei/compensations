@@ -93,21 +93,30 @@
 .tooltip { position: relative; display: inline-block; cursor: pointer; }
 .tooltip .tooltiptext {
     visibility: hidden;
-    width: 280px;
+    max-width: 320px;      /* רוחב מקסימלי למחשב */
+    width: max-content;    /* יתאים לאורך הטקסט */
+    white-space: normal;   /* שבירת שורות */
+    word-break: break-word;/* שבירה טבעית */
     background-color: #4f46e5;
     color: #fff;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     text-align: right;
     border-radius: 6px;
     padding: 10px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
     position: absolute;
     z-index: 1;
     bottom: 125%;
-    right: 50%;
-    margin-right: -140px;
+    right: 0;
     opacity: 0;
     transition: opacity 0.3s;
     line-height: 1.4;
+}
+@media (max-width: 640px) {
+  .tooltip .tooltiptext {
+      max-width: 90vw;   /* מותאם לנייד */
+  }
 }
 .tooltip:hover .tooltiptext {
     visibility: visible;
@@ -186,7 +195,7 @@
 <div class="relative flex items-start">
 <div class="flex-shrink-0 w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-sm">1</div>
 <div class="mr-4 bg-white p-6 rounded-lg shadow-md flex-1">
-<h3 class=" text-lg mb-2">קבלת טופס 161.  מה זה <span class="tooltip"><i class="fas fa-question-circle text-red-600 ml-2"></i><span class="tooltiptext">טופס 161, מעיד על ניתוק יחסי עובד-מעביד ומאפשר לכם לבחור איך לנהוג בכספי הפיצויים שלכם. הטופס מפרט מהם כספי הפיצויים שהצטברו בחיסכון הפנסיוני שלכם – כלומר בקרן פנסיה, ביטוח מנהלים או קופת גמל לתגמולים, לצד פירוט מענקי הפרישה (במידה שהיו כאלה). מטרת הטופס היא להסדיר את מיסוי כספי הפיצויים שמגיעים לכם ממקום העבודה, כאשר לעיתים אפשר לקבל פטור על כספי הפיצויים או חלקם.</span></span></h3>
+<h3 class="text-lg mb-2">קבלת טופס 161.  מה זה <span class="tooltip"><i class="fas fa-question-circle text-red-600 ml-2"></i><span class="tooltiptext">טופס 161, מעיד על ניתוק יחסי עובד-מעביד ומאפשר לכם לבחור איך לנהוג בכספי הפיצויים שלכם. הטופס מפרט מהם כספי הפיצויים שהצטברו בחיסכון הפנסיוני שלכם – כלומר בקרן פנסיה, ביטוח מנהלים או קופת גמל לתגמולים, לצד פירוט מענקי הפרישה (במידה שהיו כאלה). מטרת הטופס היא להסדיר את מיסוי כספי הפיצויים שמגיעים לכם ממקום העבודה, כאשר לעיתים אפשר לקבל פטור על כספי הפיצויים או חלקם.</span></span></h3>
 <p class="text-gray-600">יש לקבל טופס 161 מקורי חתום על ידי המעביד. טופס זה מכיל פירוט כספי הפיצויים הצבורים וניכויי המס.</p>
 </div>
 </div>
